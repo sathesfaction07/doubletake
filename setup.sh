@@ -296,7 +296,7 @@ print("       'complete' coverage.")
 assert len(report.duplicates) == 1
 print()
 print(f"     {len(report.duplicates)} exact duplicate group, {report.duplicate_rows} extra row.")
-print("     Exact keys only -- fuzzy matching over near-identical titles is CaseSearch's job and")
+print("     Exact keys only -- fuzzy matching over near-identical titles is Kinship's job and")
 print("     rebuilding a weaker version here would be duplication.")
 PYCHECK
 ok "the corpus behaves as documented"
@@ -311,14 +311,14 @@ Setup complete.
 
   source .venv/bin/activate
 
-  initiative-hub doctor
-  initiative-hub check                    # exits 1: the column conflicts, and a row is unreadable
-  initiative-hub report --sliced          # per-team knowability
-  initiative-hub audit                    # fixed-locale parser vs inference
-  initiative-hub rows-needed              # the arithmetic, and what breaks it
-  initiative-hub fields                   # how each messy amount was interpreted
-  initiative-hub explain 03/04/2026       # one value, both readings
-  initiative-hub explain 2026-04-03       # unambiguous, and not evidence
+  doubletake doctor
+  doubletake check                    # exits 1: the column conflicts, and a row is unreadable
+  doubletake report --sliced          # per-team knowability
+  doubletake audit                    # fixed-locale parser vs inference
+  doubletake rows-needed              # the arithmetic, and what breaks it
+  doubletake fields                   # how each messy amount was interpreted
+  doubletake explain 03/04/2026       # one value, both readings
+  doubletake explain 2026-04-03       # unambiguous, and not evidence
 
 `check` fails on a CONFLICTING column, because no single order fits it. It does NOT fail on an
 unknowable one: that is a property of what submitters typed, and a gate that fires whenever a team

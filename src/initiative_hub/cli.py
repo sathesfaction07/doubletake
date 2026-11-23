@@ -283,7 +283,7 @@ def doctor() -> None:
     click.echo("  database, gets aggregated, and nothing ever says which reading was taken.")
 
     click.echo("\nnot built here, on purpose")
-    click.echo("  Fuzzy dedup across near-identical titles -- CaseSearch does blocking, similarity")
+    click.echo("  Fuzzy dedup across near-identical titles -- Kinship does blocking, similarity")
     click.echo("  and clustering, and shows that single linkage chains across any threshold below 1.")
     click.echo("  Only exact-key dedup lives here.")
 

@@ -252,7 +252,7 @@ class Submission(BaseModel):
         """Identity for exact-key dedup: team plus a folded title.
 
         Exact-key only, on purpose. Fuzzy matching across near-identical titles is a solved problem
-        in this portfolio -- CaseSearch does blocking, similarity and clustering, and demonstrates
+        in this portfolio -- Kinship does blocking, similarity and clustering, and demonstrates
         that single linkage chains transitively across a threshold. Rebuilding a worse version of it
         here would be duplication, so this handles the case it can handle honestly and the docs point
         at the tool that handles the rest.

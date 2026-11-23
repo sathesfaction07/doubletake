@@ -29,7 +29,7 @@ jobs:
         run: pytest -q --cov=initiative_hub --cov-report=term-missing
 
       - name: Doctor runs with no credentials and no network
-        run: initiative-hub doctor
+        run: doubletake doctor
 
       - name: dateutil is deliberately absent
         run: |
@@ -173,7 +173,7 @@ jobs:
 
       - name: The shipped corpus produces the documented figures
         run: |
-          initiative-hub report --sliced -o /tmp/out || true
+          doubletake report --sliced -o /tmp/out || true
           python - <<'PY'
           import json
           payload = json.load(open("/tmp/out/report.json"))
@@ -217,12 +217,12 @@ jobs:
 
       - name: check gates on conflicting but not on unknowable
         run: |
-          ! initiative-hub check
-          initiative-hub check | grep -q 'conflicting'
-          initiative-hub check | grep -q 'guaranteed wrong for some rows'
-          initiative-hub check | grep -q 'never shown without its coverage'
-          initiative-hub check | grep -q "owner's judgement"
-          initiative-hub check | grep -q 'CaseSearch'
+          ! doubletake check
+          doubletake check | grep -q 'conflicting'
+          doubletake check | grep -q 'guaranteed wrong for some rows'
+          doubletake check | grep -q 'never shown without its coverage'
+          doubletake check | grep -q "owner's judgement"
+          doubletake check | grep -q 'Kinship'
           echo "gated on the conflict"
 
       - name: an unknowable column passes, so the gate is not unconditional
@@ -239,35 +239,35 @@ jobs:
               "\n".join(json.dumps(r) for r in rows) + "\n", encoding="utf-8"
           )
           PY
-          IH_SUBMISSIONS=/tmp/unknowable.jsonl initiative-hub check
-          IH_SUBMISSIONS=/tmp/unknowable.jsonl initiative-hub check | grep -q 'does NOT fail this check'
+          IH_SUBMISSIONS=/tmp/unknowable.jsonl doubletake check
+          IH_SUBMISSIONS=/tmp/unknowable.jsonl doubletake check | grep -q 'does NOT fail this check'
           echo "unknowable does not gate"
 
       - name: audit passes even though the fixed baseline is bad
         run: |
-          initiative-hub audit
-          initiative-hub audit | grep -q 'it IS the finding'
-          initiative-hub audit | grep -q 'Refusals are not a cost'
-          initiative-hub audit | grep -q 'the same uncertainty, made visible'
-          initiative-hub audit | grep -q 'slices looking healthy    2'
+          doubletake audit
+          doubletake audit | grep -q 'it IS the finding'
+          doubletake audit | grep -q 'Refusals are not a cost'
+          doubletake audit | grep -q 'the same uncertainty, made visible'
+          doubletake audit | grep -q 'slices looking healthy    2'
           echo "the gate is not unconditional"
 
       - name: rows-needed publishes the arithmetic and names what breaks it
         run: |
-          initiative-hub rows-needed | grep -q '144/365'
-          initiative-hub rows-needed | grep -q '0.3945'
-          initiative-hub rows-needed | grep -q 'UNIFORMITY'
-          initiative-hub rows-needed | grep -q 'regardless of how many rows'
-          initiative-hub rows-needed | grep -q 'when people submit, not by how much data'
+          doubletake rows-needed | grep -q '144/365'
+          doubletake rows-needed | grep -q '0.3945'
+          doubletake rows-needed | grep -q 'UNIFORMITY'
+          doubletake rows-needed | grep -q 'regardless of how many rows'
+          doubletake rows-needed | grep -q 'when people submit, not by how much data'
           echo "arithmetic published with its caveat"
 
       - name: explain distinguishes all four value-level outcomes
         run: |
-          initiative-hub explain 03/04/2026 | grep -q 'no error and no warning'
-          initiative-hub explain 13/04/2026 | grep -q 'implies order  day_first'
-          initiative-hub explain 05/05/2026 | grep -q 'tells you nothing about the order'
-          initiative-hub explain 2026-04-03 | grep -q 'rescues none of its neighbours'
-          initiative-hub explain 'next quarter' | grep -q 'SAFE failure'
+          doubletake explain 03/04/2026 | grep -q 'no error and no warning'
+          doubletake explain 13/04/2026 | grep -q 'implies order  day_first'
+          doubletake explain 05/05/2026 | grep -q 'tells you nothing about the order'
+          doubletake explain 2026-04-03 | grep -q 'rescues none of its neighbours'
+          doubletake explain 'next quarter' | grep -q 'SAFE failure'
           echo "explain works"
 
   test-windows:

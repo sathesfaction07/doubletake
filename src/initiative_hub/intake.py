@@ -1,7 +1,7 @@
 """Loading submissions, exact-key dedup, and analysing a dataset column by column.
 
 Dedup here is EXACT-KEY ONLY, and that is a scope decision rather than an oversight. Fuzzy matching
-across near-identical titles is already solved in this portfolio: CaseSearch does blocking,
+across near-identical titles is already solved in this portfolio: Kinship does blocking,
 similarity and clustering, and demonstrates that single linkage chains transitively across any
 threshold below 1.0. Building a weaker version here would be duplication. What this does is the part
 that is genuinely exact -- same team, same folded title -- and the docs point at the tool that does

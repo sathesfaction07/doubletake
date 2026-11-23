@@ -1,4 +1,4 @@
-# InitiativeHub — Technical Architecture
+# Doubletake — Technical Architecture
 
 ## Overview
 
@@ -17,7 +17,7 @@ value cannot be resolved.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│                       CLI (initiative-hub)                                    │
+│                       CLI (doubletake)                                    │
 │                                                                              │
 │  check        what the dataset establishes about its own format               │
 │               EXIT 1 on a CONFLICTING column or an unreadable row. NOT on an  │
@@ -119,7 +119,7 @@ value cannot be resolved.
 │    wrong_unit  parses PERFECTLY and                                           │
 │                  cannot be summed      EXACT KEYS ONLY, deliberately. Fuzzy    │
 │                  with the column.        matching over near-identical titles   │
-│                  Invisible to any        is CaseSearch's job -- it does        │
+│                  Invisible to any        is Kinship's job -- it does        │
 │                  parse-failure check     blocking, similarity and clustering,  │
 │    free_text   prose                     and shows single linkage chains       │
 │    empty       nothing claimed, so       transitively below threshold 1.0.     │
@@ -236,7 +236,7 @@ textual dates whose numeric rows stay unresolvable.
 ## Data Flow
 
 ```
-1.  initiative-hub report --sliced
+1.  doubletake report --sliced
 2.  load 89 submissions, 85 known true dates
       1 row missing its identity      -> reported, and it fails `check`
 3.  read the date column under BOTH orders, classify each value

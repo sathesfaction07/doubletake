@@ -85,7 +85,7 @@ def render_report(report: DatasetReport) -> str:
         for group in report.duplicates:
             out.write(f"  {group.team} / {group.title!r}: {', '.join(group.submission_ids)}\n")
         out.write("  Reported rather than collapsed: which copy survives is the owner's judgement.\n")
-        out.write("  Exact keys only. Near-duplicate titles need the fuzzy matching CaseSearch does.\n")
+        out.write("  Exact keys only. Near-duplicate titles need the fuzzy matching Kinship does.\n")
 
     if report.problems:
         out.write(f"\n{len(report.problems)} unreadable row(s):\n")

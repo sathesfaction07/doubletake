@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     """
 
     confidence: float = Field(default=0.99, gt=0.0, lt=1.0)
-    """Target confidence for `initiative-hub rows-needed`.
+    """Target confidence for `doubletake rows-needed`.
 
     Bounded strictly inside 0 and 1 because both endpoints are degenerate: 0 needs no rows and 1 is
     unreachable, since no finite number of ambiguous dates guarantees a disambiguating one.

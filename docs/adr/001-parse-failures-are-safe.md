@@ -102,13 +102,13 @@ no such escape, which is why one gets resolved and the other does not.
 
 ### What is deliberately not built
 
-**Fuzzy dedup.** CaseSearch in this portfolio does blocking, similarity and clustering, and
+**Fuzzy dedup.** Kinship in this portfolio does blocking, similarity and clustering, and
 demonstrates that single linkage chains transitively across any threshold below 1.0. Building a
 weaker version here would be duplication. Only exact-key dedup lives here — same team, same folded
 title — and duplicates are **reported rather than collapsed**, because which copy survives is the
 owner's judgement.
 
-**Streamlit, embedded charts and PDF export**, all of which the brief asks for. AIClassifier already
+**Streamlit, embedded charts and PDF export**, all of which the brief asks for. Plumbline already
 carries `render/chart.py`, and this portfolio has a logged gap for untested UI code. A text table
 asserts in CI; a chart does not.
 

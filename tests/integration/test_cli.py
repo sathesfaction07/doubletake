@@ -39,7 +39,7 @@ class TestDoctor:
 
     def test_names_what_is_deliberately_not_built(self, runner, env):
         result = runner.invoke(cli, ["doctor"], env=env)
-        assert "CaseSearch" in result.output
+        assert "Kinship" in result.output
         assert "exact-key dedup" in result.output
 
     def test_fails_on_missing_inputs(self, runner, tmp_path):
@@ -76,7 +76,7 @@ class TestCheck:
         result = runner.invoke(cli, ["check"], env=env)
         assert "exact duplicate group(s)" in result.output
         assert "owner's judgement" in result.output
-        assert "CaseSearch" in result.output
+        assert "Kinship" in result.output
 
     def test_an_unknowable_column_does_not_fail_the_check(self, runner, tmp_path):
         """A gate that fires whenever a team submits on the first of the month gets switched off."""

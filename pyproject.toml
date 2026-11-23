@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "initiative-hub"
+name = "doubletake"
 version = "0.1.0"
 description = "Intake validation for initiative submissions, built around dates that read two ways"
 requires-python = ">=3.11"
@@ -21,7 +21,7 @@ dev = [
 ]
 
 [project.scripts]
-initiative-hub = "initiative_hub.cli:cli"
+doubletake = "initiative_hub.cli:cli"
 
 [tool.setuptools.packages.find]
 where = ["src"]

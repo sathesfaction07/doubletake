@@ -1,7 +1,7 @@
-# InitiativeHub
+# Doubletake
 
 Is `03/04/2026` the 3rd of April or the 4th of March? A validator with a fixed locale picks one
-and moves on, and nothing records that a choice was made. InitiativeHub validates initiative
+and moves on, and nothing records that a choice was made. Doubletake validates initiative
 submissions by treating values like that as what they are: readable two ways. It refuses to
 guess, works out which columns their other rows can resolve, and shows that whether a column is
 resolvable depends on *when* people submit, not on how many rows there are.
@@ -167,14 +167,14 @@ with euros is not detected at all.
 bash setup.sh                  # derives the arithmetic against simulation, and what breaks it
 source .venv/bin/activate
 
-initiative-hub doctor
-initiative-hub check                    # exits 1: the column conflicts, and a row is unreadable
-initiative-hub report --sliced          # per-team knowability
-initiative-hub audit                    # fixed-locale parser vs inference
-initiative-hub rows-needed              # the arithmetic, and the assumption that breaks it
-initiative-hub fields                   # how each messy amount was interpreted
-initiative-hub explain 03/04/2026       # one value, both readings
-initiative-hub explain 2026-04-03       # unambiguous, and not evidence
+doubletake doctor
+doubletake check                    # exits 1: the column conflicts, and a row is unreadable
+doubletake report --sliced          # per-team knowability
+doubletake audit                    # fixed-locale parser vs inference
+doubletake rows-needed              # the arithmetic, and the assumption that breaks it
+doubletake fields                   # how each messy amount was interpreted
+doubletake explain 03/04/2026       # one value, both readings
+doubletake explain 2026-04-03       # unambiguous, and not evidence
 ```
 
 | Command | Purpose | Exit |
@@ -211,19 +211,19 @@ ordering that does nothing.
 
 ## Scope: What This Deliberately Does Not Do
 
-**Fuzzy dedup.** CaseSearch in this portfolio does blocking, similarity and clustering, and
+**Fuzzy dedup.** Kinship in this portfolio does blocking, similarity and clustering, and
 demonstrates that single linkage chains transitively across any threshold below 1.0. Only exact-key
 dedup lives here — same team, same folded title — and duplicates are **reported rather than
 collapsed**, because which copy survives is the owner's judgement.
 
-**Streamlit, embedded charts and PDF export**, all of which the brief asks for. AIClassifier already
+**Streamlit, embedded charts and PDF export**, all of which the brief asks for. Plumbline already
 carries `render/chart.py`, and this portfolio has a logged gap for untested UI code. A text table
 asserts in CI; a chart does not.
 
 The brief's verdict was *"Pydantic validation + dedup"*, which is the least novel line in the strategy
 doc. The diligence check found that dedup, timelines, status tracking and SQLite were all already
 built — and that **nothing anywhere handled locale-ambiguous dates** (`dayfirst`/`monthfirst`: zero
-hits; ComplianceCheck uses `date.fromisoformat`, unambiguous by construction). That gap is the whole
+hits; AsOf uses `date.fromisoformat`, unambiguous by construction). That gap is the whole
 project, and the rest is scoped out with reasons.
 
 ---
