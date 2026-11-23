@@ -1,9 +1,13 @@
 # InitiativeHub
 
-Validates initiative submissions, starting from the values that read two ways.
+Is `03/04/2026` the 3rd of April or the 4th of March? A validator with a fixed locale picks one
+and moves on, and nothing records that a choice was made. InitiativeHub validates initiative
+submissions by treating values like that as what they are: readable two ways. It refuses to
+guess, works out which columns their other rows can resolve, and shows that whether a column is
+resolvable depends on *when* people submit, not on how many rows there are.
 
-No model. The accuracy problem here is arithmetic on calendars, plus a decision about what to do when
-a value cannot be resolved.
+The hard part is calendar arithmetic, plus one policy decision: what to do with a value that
+cannot be resolved.
 
 ---
 
