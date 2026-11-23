@@ -1,0 +1,49 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+      - id: check-added-large-files
+        args: [--maxkb=500]
+      - id: check-merge-conflict
+
+  - repo: local
+    hooks:
+      # Every known true date must belong to a submission that exists, and every Ambiguity and
+      # ColumnOrder value must still occur. An orphan would make the accuracy figures quietly wrong;
+      # a missing enum value would make the assertions about it vacuous.
+      - id: corpus-is-consistent
+        name: known dates name real submissions, and every outcome still occurs
+        entry: >
+          python -c "import sys; sys.path.insert(0, 'src');
+          from pathlib import Path;
+          from initiative_hub.intake import load_submissions, load_truth, date_readings, slice_by;
+          from initiative_hub.columns import infer_order;
+          from initiative_hub.models import Ambiguity, ColumnOrder;
+          s, sp = load_submissions(Path('data/submissions.jsonl'));
+          t, tp = load_truth(Path('data/truth.jsonl'));
+          assert not tp, tp;
+          assert len(sp) == 1, f'expected exactly 1 planted bad row, got {len(sp)}';
+          ids = {x.submission_id for x in s};
+          orphans = sorted(set(t) - ids);
+          assert not orphans, f'known dates name missing submissions: {orphans}';
+          seen = {r.ambiguity for r in date_readings(s, 'target_date')};
+          assert seen == set(Ambiguity), f'missing Ambiguity values: {sorted(set(Ambiguity) - seen)}';
+          orders = {infer_order(n, date_readings(g, 'target_date')).order
+                    for n, g in slice_by(s, 'team').items()};
+          assert orders == set(ColumnOrder), f'missing ColumnOrder values: {sorted(set(ColumnOrder) - orders)}';
+          print(f'{len(s)} submissions, {len(t)} known dates, all outcomes present')"
+        language: system
+        pass_filenames: false
+        files: ^data/

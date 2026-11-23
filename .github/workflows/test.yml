@@ -1,0 +1,271 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install
+        run: pip install -e ".[dev]"
+
+      - name: Lint
+        run: ruff check src tests data
+
+      - name: Test
+        run: pytest -q --cov=initiative_hub --cov-report=term-missing
+
+      - name: Doctor runs with no credentials and no network
+        run: initiative-hub doctor
+
+      - name: dateutil is deliberately absent
+        run: |
+          python - <<'PY'
+          import importlib.util
+          # Its `dayfirst` flag takes the exact decision this project exists to expose. The behaviour
+          # under examination cannot also be the implementation.
+          assert importlib.util.find_spec("dateutil") is None, "dateutil must not be a dependency"
+          print("dateutil absent")
+          PY
+
+      - name: The ambiguity rate is 144/365, derived three ways
+        run: |
+          python - <<'PY'
+          import random
+          from datetime import date, timedelta
+          from initiative_hub.dates import ambiguity_probability
+
+          exact = ambiguity_probability(year=2026)
+          assert abs(exact - 144 / 365) < 1e-9, exact
+          assert abs(ambiguity_probability(year=2024) - 144 / 366) < 1e-9
+
+          start = date(2026, 1, 1)
+          brute = sum(1 for i in range(365) if (start + timedelta(days=i)).day <= 12) / 365
+          assert abs(brute - exact) < 1e-9, (brute, exact)
+
+          rng = random.Random(11)
+          sim = sum(
+              1 for _ in range(200_000) if (start + timedelta(days=rng.randrange(365))).day <= 12
+          ) / 200_000
+          assert abs(sim - exact) < 0.005, (sim, exact)
+          print(f"exact {exact:.4f}  brute {brute:.4f}  simulated {sim:.4f}")
+          PY
+
+      - name: Unknowability falls off geometrically and matches simulation
+        run: |
+          python - <<'PY'
+          import random
+          from datetime import date, timedelta
+          from initiative_hub.dates import informative_rows_needed, unknowable_probability
+
+          rng = random.Random(5)
+          start = date(2026, 1, 1)
+
+          for rows in (1, 2, 3, 5, 8):
+              closed = unknowable_probability(rows)
+              hits = sum(
+                  1 for _ in range(20_000)
+                  if all((start + timedelta(days=rng.randrange(365))).day <= 12 for _ in range(rows))
+              )
+              assert abs(hits / 20_000 - closed) < 0.02, (rows, hits / 20_000, closed)
+
+          assert unknowable_probability(0) == 1.0
+          assert informative_rows_needed(0.99) == 5
+          assert informative_rows_needed(0.999) == 8
+          print("5 rows for 99%, 8 for 99.9%")
+          PY
+
+      - name: A monthly deadline makes EVERY column unknowable at any size
+        run: |
+          python - <<'PY'
+          from initiative_hub.columns import infer_order
+          from initiative_hub.dates import read_all
+
+          # Days chosen so none equals its month, otherwise the rows land in IDENTICAL and the case
+          # being demonstrated is the harmless one rather than the dangerous one.
+          deadline = [
+              f"{day:02d}/{month:02d}/2026"
+              for month, day in zip(range(1, 13), [3, 7, 2, 11, 4, 9, 1, 12, 6, 8, 5, 10])
+          ]
+          verdict = infer_order("deadline", read_all(deadline))
+          assert not verdict.order.is_established, verdict.order
+          assert verdict.informative == 0
+          assert verdict.ambiguous == 12
+
+          # Not a small-column effect: more rows do not help.
+          for multiple in (2, 4, 10):
+              assert not infer_order("x", read_all(deadline * multiple)).order.is_established
+
+          # A mid-month pattern is fine, so the effect is the TIMING and not the format.
+          mid = [f"{day:02d}/{month:02d}/2026"
+                 for month, day in zip(range(1, 13), range(13, 25))]
+          assert infer_order("mid", read_all(mid)).order.is_established
+          print("deadline: unknowable at any size. mid-month: established.")
+          PY
+
+      - name: Unambiguous is not the same as informative
+        run: |
+          python - <<'PY'
+          from initiative_hub.columns import infer_order
+          from initiative_hub.dates import read, read_all
+
+          # A day above 12 is evidence.
+          assert read("13/04/2026").implied_order.value == "day_first"
+          assert read("04/13/2026").implied_order.value == "month_first"
+
+          # An ISO date and a spelled-out month are beyond doubt and imply NOTHING about the numeric
+          # values beside them, because they are a different format.
+          for raw in ("2026-04-03", "04 Mar 2026", "Mar 04 2026"):
+              item = read(raw)
+              assert item.ambiguity.value == "unambiguous", raw
+              assert not item.is_informative, raw
+              assert item.implied_order is None, raw
+
+          # An IDENTICAL value parses cleanly and is also not evidence.
+          assert read("05/05/2026").ambiguity.value == "identical"
+          assert not read("05/05/2026").is_informative
+
+          # So a column of clean ISO dates plus ambiguous numeric ones is STILL unknowable.
+          verdict = infer_order("mixed", read_all(["2026-04-03", "2026-05-09", "03/04/2026", "05/06/2026"]))
+          assert verdict.order.value == "unknowable", verdict.order
+          assert verdict.informative == 0
+          print("ISO values rescue none of their neighbours")
+          PY
+
+      - name: A percentage parses cleanly and must not be summed with currency
+        run: |
+          python - <<'PY'
+          from initiative_hub.fields import coverage, read_number
+
+          item = read_number("saving", "15%")
+          assert item.kind.value == "wrong_unit", item.kind
+          assert item.value == 15.0, "the value is kept so it stays inspectable"
+          assert not item.aggregatable
+
+          # An earlier version summed this with currency: two $12,000 rows became $24,015 at 100%
+          # 'complete' coverage.
+          result = coverage("saving", [read_number("saving", r) for r in ("12000", "12000", "15%")])
+          assert result.total == 24000.0, result.total
+          assert result.included == 2
+          assert not result.is_complete
+          assert abs(result.coverage - 2 / 3) < 1e-9
+
+          # A range is not coerced to its midpoint, and a hedge is not a figure.
+          assert read_number("saving", "5000-8000").kind.value == "free_text"
+          assert read_number("saving", "approx 12000").kind.value == "free_text"
+          # Nothing parsed means None, never zero -- zero would be a claim.
+          assert coverage("saving", [read_number("saving", "TBD")]).total is None
+          print("wrong_unit excluded from the total, and the coverage says so")
+          PY
+
+      - name: The shipped corpus produces the documented figures
+        run: |
+          initiative-hub report --sliced -o /tmp/out || true
+          python - <<'PY'
+          import json
+          payload = json.load(open("/tmp/out/report.json"))
+
+          assert payload["rows"] == 89, payload["rows"]
+          assert payload["date_column"]["order"] == "conflicting"
+          assert payload["aggregatable"] is False
+          assert payload["date_column"]["ambiguous"] >= 39
+          assert payload["worst_divergence_days"] > 200
+          assert 0 < payload["quarter_crossing"] <= payload["at_risk"]
+          assert payload["amount_column"]["complete"] is False
+          assert payload["amount_column"]["kinds"]["wrong_unit"] >= 1
+          assert len(payload["duplicates"]) == 1
+
+          slices = {item["slice"]: item for item in payload["slices"]}
+          orders = {item["order"] for item in payload["slices"]}
+          assert orders == {"day_first", "month_first", "unknowable", "conflicting", "empty"}, orders
+
+          # The deadline team: silently wrong on every answer, with ZERO parse failures.
+          assert slices["quality"]["order"] == "unknowable"
+          assert slices["quality"]["fixed_parse_failures"] == 0
+          assert slices["quality"]["fixed_silent_error_rate"] == 1.0
+          assert slices["quality"]["fixed_looks_healthy"] is True
+
+          # The ISO team stays unknowable despite holding clean dates.
+          assert slices["procurement"]["order"] == "unknowable"
+          assert slices["procurement"]["informative"] == 0
+
+          # A slice that answered nothing has no error rate to report.
+          assert slices["marketing"]["fixed_silent_error_rate"] is None
+          assert slices["marketing"]["inference_accuracy_on_resolved"] is None
+
+          totals = payload["totals"]
+          assert totals["inference_wrong"] == 0
+          assert totals["fixed_silently_wrong"] >= 39
+          assert totals["fixed_parse_failures"] > 0, "the aggregate has LOUD failures"
+          assert totals["columns_looking_healthy"] == 2, "and two slices are still silent"
+          print(f"conflicting overall; {totals['fixed_silently_wrong']} silently wrong; "
+                f"{totals['columns_looking_healthy']} slices look healthy")
+          PY
+
+      - name: check gates on conflicting but not on unknowable
+        run: |
+          ! initiative-hub check
+          initiative-hub check | grep -q 'conflicting'
+          initiative-hub check | grep -q 'guaranteed wrong for some rows'
+          initiative-hub check | grep -q 'never shown without its coverage'
+          initiative-hub check | grep -q "owner's judgement"
+          initiative-hub check | grep -q 'CaseSearch'
+          echo "gated on the conflict"
+
+      - name: an unknowable column passes, so the gate is not unconditional
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          rows = [
+              {"submission_id": f"S-{i}", "team": "alpha", "title": f"Item {i}",
+               "target_date": f"0{i}/0{i + 1}/2026", "annual_saving": "1000"}
+              for i in range(1, 5)
+          ]
+          Path("/tmp/unknowable.jsonl").write_text(
+              "\n".join(json.dumps(r) for r in rows) + "\n", encoding="utf-8"
+          )
+          PY
+          IH_SUBMISSIONS=/tmp/unknowable.jsonl initiative-hub check
+          IH_SUBMISSIONS=/tmp/unknowable.jsonl initiative-hub check | grep -q 'does NOT fail this check'
+          echo "unknowable does not gate"
+
+      - name: audit passes even though the fixed baseline is bad
+        run: |
+          initiative-hub audit
+          initiative-hub audit | grep -q 'it IS the finding'
+          initiative-hub audit | grep -q 'Refusals are not a cost'
+          initiative-hub audit | grep -q 'the same uncertainty, made visible'
+          initiative-hub audit | grep -q 'slices looking healthy    2'
+          echo "the gate is not unconditional"
+
+      - name: rows-needed publishes the arithmetic and names what breaks it
+        run: |
+          initiative-hub rows-needed | grep -q '144/365'
+          initiative-hub rows-needed | grep -q '0.3945'
+          initiative-hub rows-needed | grep -q 'UNIFORMITY'
+          initiative-hub rows-needed | grep -q 'regardless of how many rows'
+          initiative-hub rows-needed | grep -q 'when people submit, not by how much data'
+          echo "arithmetic published with its caveat"
+
+      - name: explain distinguishes all four value-level outcomes
+        run: |
+          initiative-hub explain 03/04/2026 | grep -q 'no error and no warning'
+          initiative-hub explain 13/04/2026 | grep -q 'implies order  day_first'
+          initiative-hub explain 05/05/2026 | grep -q 'tells you nothing about the order'
+          initiative-hub explain 2026-04-03 | grep -q 'rescues none of its neighbours'
+          initiative-hub explain 'next quarter' | grep -q 'SAFE failure'
+          echo "explain works"

@@ -1,0 +1,90 @@
+{"submission_id": "S-0020", "team": "finance", "title": "Automate invoice matching step 5", "target_date": "04/09/2026", "annual_saving": "22000"}
+{"submission_id": "S-0001", "team": "logistics", "title": "Reduce pick-path walking distance 0", "target_date": "06/01/2026", "annual_saving": "12000"}
+{"submission_id": "S-0005", "team": "logistics", "title": "Reduce pick-path walking distance 4", "target_date": "19/02/2026", "annual_saving": "150000"}
+{"submission_id": "S-0021", "team": "finance", "title": "Automate invoice matching step 6", "target_date": "04/22/2026", "annual_saving": "6400"}
+{"submission_id": "S-0014", "team": "logistics", "title": "Reduce pick-path walking distance 13", "target_date": "29/05/2026", "annual_saving": "22000"}
+{"submission_id": "S-0052", "team": "engineering", "title": "Trim flaky test suite 3", "target_date": "04/07/2026", "annual_saving": "3200"}
+{"submission_id": "S-0058", "team": "support", "title": "Shorten escalation handoff 3", "target_date": "06/03/2026", "annual_saving": "8500/yr"}
+{"submission_id": "S-0041", "team": "quality", "title": "Standardise inspection checklist 12", "target_date": "07/01/2026", "annual_saving": "150000"}
+{"submission_id": "S-0079", "team": "procurement", "title": "Batch small purchase orders 4", "target_date": "05/10/2026", "annual_saving": "150000"}
+{"submission_id": "S-0011", "team": "logistics", "title": "Reduce pick-path walking distance 10", "target_date": "26/04/2026", "annual_saving": "45000"}
+{"submission_id": "S-0070", "team": "procurement", "title": "Consolidate supplier catalogue 3", "target_date": "2026-08-06", "annual_saving": "3200"}
+{"submission_id": "S-0068", "team": "procurement", "title": "Consolidate supplier catalogue 1", "target_date": "2026-08-04", "annual_saving": "8500"}
+{"submission_id": "S-0077", "team": "procurement", "title": "Batch small purchase orders 2", "target_date": "03/10/2026", "annual_saving": "45000"}
+{"submission_id": "S-0027", "team": "finance", "title": "Automate invoice matching step 12", "target_date": "07/09/2026", "annual_saving": "150000"}
+{"submission_id": "S-0050", "team": "engineering", "title": "Trim flaky test suite 1", "target_date": "02/07/2026", "annual_saving": "8500"}
+{"submission_id": "S-0065", "team": "support", "title": "Shorten escalation handoff 10", "target_date": "03/07/2026", "annual_saving": "22,500 per year"}
+{"submission_id": "S-0053", "team": "engineering", "title": "Trim flaky test suite 4", "target_date": "05/07/2026", "annual_saving": "150000"}
+{"submission_id": "S-0036", "team": "quality", "title": "Standardise inspection checklist 7", "target_date": "12/08/2026", "annual_saving": "98000"}
+{"submission_id": "S-0029", "team": "quality", "title": "Standardise inspection checklist 0", "target_date": "03/01/2026", "annual_saving": "12000"}
+{"submission_id": "S-0059", "team": "support", "title": "Shorten escalation handoff 4", "target_date": "23/03/2026", "annual_saving": "approx 20000"}
+{"submission_id": "S-0040", "team": "quality", "title": "Standardise inspection checklist 11", "target_date": "08/12/2026", "annual_saving": "3200"}
+{"submission_id": "S-0002", "team": "logistics", "title": "Reduce pick-path walking distance 1", "target_date": "17/01/2026", "annual_saving": "8500"}
+{"submission_id": "S-0042", "team": "quality", "title": "Standardise inspection checklist 13", "target_date": "03/02/2026", "annual_saving": "22000"}
+{"submission_id": "S-0061", "team": "support", "title": "Shorten escalation handoff 6", "target_date": "26/04/2026", "annual_saving": "TBD"}
+{"submission_id": "S-0069", "team": "procurement", "title": "Consolidate supplier catalogue 2", "target_date": "2026-08-05", "annual_saving": "45000"}
+{"submission_id": "S-0083", "team": "facilities", "title": "Reschedule cleaning rota 6", "target_date": "06/06/2026", "annual_saving": "6400"}
+{"submission_id": "S-0024", "team": "finance", "title": "Automate invoice matching step 9", "target_date": "05/31/2026", "annual_saving": "8500"}
+{"submission_id": "S-0072", "team": "procurement", "title": "Renegotiate freight terms 1", "target_date": "03 Sep 2026", "annual_saving": "8500"}
+{"submission_id": "S-0073", "team": "procurement", "title": "Renegotiate freight terms 2", "target_date": "04 Sep 2026", "annual_saving": "45000"}
+{"submission_id": "S-0044", "team": "quality", "title": "Standardise inspection checklist 15", "target_date": "02/04/2026", "annual_saving": "98000"}
+{"submission_id": "S-0026", "team": "finance", "title": "Automate invoice matching step 11", "target_date": "06/26/2026", "annual_saving": "3200"}
+{"submission_id": "S-0056", "team": "support", "title": "Shorten escalation handoff 1", "target_date": "31/01/2026", "annual_saving": "12k"}
+{"submission_id": "S-0063", "team": "support", "title": "Shorten escalation handoff 8", "target_date": "30/05/2026", "annual_saving": "15%"}
+{"submission_id": "S-0047", "team": "engineering", "title": "Cut build queue wait 2", "target_date": "30/05/2026", "annual_saving": "45000"}
+{"submission_id": "S-0084", "team": "facilities", "title": "Reschedule cleaning rota 7", "target_date": "07/07/2026", "annual_saving": "98000"}
+{"submission_id": "S-0048", "team": "engineering", "title": "Cut build queue wait 3", "target_date": "06/14/2026", "annual_saving": "3200"}
+{"submission_id": "S-0018", "team": "finance", "title": "Automate invoice matching step 3", "target_date": "03/14/2026", "annual_saving": "3200"}
+{"submission_id": "S-0030", "team": "quality", "title": "Standardise inspection checklist 1", "target_date": "07/02/2026", "annual_saving": "8500"}
+{"submission_id": "S-0017", "team": "finance", "title": "Automate invoice matching step 2", "target_date": "03/01/2026", "annual_saving": "45000"}
+{"submission_id": "S-0071", "team": "procurement", "title": "Renegotiate freight terms 0", "target_date": "02 Sep 2026", "annual_saving": "12000"}
+{"submission_id": "S-0088", "team": "marketing", "title": "Refresh campaign assets ", "target_date": "", "annual_saving": "5000"}
+{"submission_id": "S-0003", "team": "logistics", "title": "Reduce pick-path walking distance 2", "target_date": "28/01/2026", "annual_saving": "45000"}
+{"submission_id": "S-0082", "team": "facilities", "title": "Reschedule cleaning rota 5", "target_date": "05/05/2026", "annual_saving": "22000"}
+{"submission_id": "S-0038", "team": "quality", "title": "Standardise inspection checklist 9", "target_date": "11/10/2026", "annual_saving": "8500"}
+{"submission_id": "S-0035", "team": "quality", "title": "Standardise inspection checklist 6", "target_date": "04/07/2026", "annual_saving": "6400"}
+{"submission_id": "S-0007", "team": "logistics", "title": "Reduce pick-path walking distance 6", "target_date": "13/03/2026", "annual_saving": "6400"}
+{"submission_id": "S-0022", "team": "finance", "title": "Automate invoice matching step 7", "target_date": "05/05/2026", "annual_saving": "98000"}
+{"submission_id": "S-0037", "team": "quality", "title": "Standardise inspection checklist 8", "target_date": "06/09/2026", "annual_saving": "12000"}
+{"submission_id": "S-0004", "team": "logistics", "title": "Reduce pick-path walking distance 3", "target_date": "08/02/2026", "annual_saving": "3200"}
+{"submission_id": "S-0009", "team": "logistics", "title": "Reduce pick-path walking distance 8", "target_date": "04/04/2026", "annual_saving": "12000"}
+{"submission_id": "S-0012", "team": "logistics", "title": "Reduce pick-path walking distance 11", "target_date": "07/05/2026", "annual_saving": "3200"}
+{"submission_id": "S-0081", "team": "facilities", "title": "Reschedule cleaning rota 4", "target_date": "04/04/2026", "annual_saving": "150000"}
+{"submission_id": "S-0019", "team": "finance", "title": "Automate invoice matching step 4", "target_date": "03/27/2026", "annual_saving": "150000"}
+{"submission_id": "S-0033", "team": "quality", "title": "Standardise inspection checklist 4", "target_date": "06/05/2026", "annual_saving": "150000"}
+{"submission_id": "S-0049", "team": "engineering", "title": "Trim flaky test suite 0", "target_date": "01/07/2026", "annual_saving": "12000"}
+{"submission_id": "S-0045", "team": "engineering", "title": "Cut build queue wait 0", "target_date": "25/03/2026", "annual_saving": "12000"}
+{"submission_id": "S-0039", "team": "quality", "title": "Standardise inspection checklist 10", "target_date": "01/11/2026", "annual_saving": "45000"}
+{"submission_id": "S-0074", "team": "procurement", "title": "Renegotiate freight terms 3", "target_date": "05 Sep 2026", "annual_saving": "3200"}
+{"submission_id": "S-0080", "team": "procurement", "title": "Batch small purchase orders 5", "target_date": "06/10/2026", "annual_saving": "22000"}
+{"submission_id": "S-0023", "team": "finance", "title": "Automate invoice matching step 8", "target_date": "05/18/2026", "annual_saving": "12000"}
+{"submission_id": "S-0054", "team": "engineering", "title": "Trim flaky test suite 5", "target_date": "06/07/2026", "annual_saving": "22000"}
+{"submission_id": "S-0060", "team": "support", "title": "Shorten escalation handoff 5", "target_date": "09/04/2026", "annual_saving": "5000-8000"}
+{"submission_id": "S-0015", "team": "finance", "title": "Automate invoice matching step 0", "target_date": "02/03/2026", "annual_saving": "12000"}
+{"submission_id": "S-0057", "team": "support", "title": "Shorten escalation handoff 2", "target_date": "17/02/2026", "annual_saving": "£1.5m"}
+{"submission_id": "S-0043", "team": "quality", "title": "Standardise inspection checklist 14", "target_date": "11/03/2026", "annual_saving": "6400"}
+{"submission_id": "S-0067", "team": "procurement", "title": "Consolidate supplier catalogue 0", "target_date": "2026-08-03", "annual_saving": "12000"}
+{"submission_id": "S-0075", "team": "procurement", "title": "Batch small purchase orders 0", "target_date": "01/10/2026", "annual_saving": "12000"}
+{"submission_id": "S-0085", "team": "logistics", "title": "Reduce pick-path walking distance 0", "target_date": "20/11/2026", "annual_saving": "12,000"}
+{"submission_id": "S-0028", "team": "finance", "title": "Automate invoice matching step 13", "target_date": "07/22/2026", "annual_saving": "22000"}
+{"submission_id": "S-0087", "team": "marketing", "title": "Refresh campaign assets next q", "target_date": "next quarter", "annual_saving": "5000"}
+{"submission_id": "S-0064", "team": "support", "title": "Shorten escalation handoff 9", "target_date": "16/06/2026", "annual_saving": ""}
+{"submission_id": "S-0006", "team": "logistics", "title": "Reduce pick-path walking distance 5", "target_date": "02/03/2026", "annual_saving": "22000"}
+{"submission_id": "S-0031", "team": "quality", "title": "Standardise inspection checklist 2", "target_date": "02/03/2026", "annual_saving": "45000"}
+{"submission_id": "S-0016", "team": "finance", "title": "Automate invoice matching step 1", "target_date": "02/16/2026", "annual_saving": "8500"}
+{"submission_id": "S-0076", "team": "procurement", "title": "Batch small purchase orders 1", "target_date": "02/10/2026", "annual_saving": "8500"}
+{"submission_id": "S-0066", "team": "support", "title": "Shorten escalation handoff 11", "target_date": "20/07/2026", "annual_saving": "3 hours/week"}
+{"submission_id": "S-0010", "team": "logistics", "title": "Reduce pick-path walking distance 9", "target_date": "15/04/2026", "annual_saving": "8500"}
+{"submission_id": "S-0025", "team": "finance", "title": "Automate invoice matching step 10", "target_date": "06/13/2026", "annual_saving": "45000"}
+{"submission_id": "S-0032", "team": "quality", "title": "Standardise inspection checklist 3", "target_date": "11/04/2026", "annual_saving": "3200"}
+{"submission_id": "S-0086", "team": "marketing", "title": "Refresh campaign assets 31/02/", "target_date": "31/02/2026", "annual_saving": "5000"}
+{"submission_id": "S-0034", "team": "quality", "title": "Standardise inspection checklist 5", "target_date": "09/06/2026", "annual_saving": "22000"}
+{"submission_id": "S-0055", "team": "support", "title": "Shorten escalation handoff 0", "target_date": "14/01/2026", "annual_saving": "$12,000"}
+{"submission_id": "S-0046", "team": "engineering", "title": "Cut build queue wait 1", "target_date": "04/18/2026", "annual_saving": "8500"}
+{"submission_id": "S-0008", "team": "logistics", "title": "Reduce pick-path walking distance 7", "target_date": "24/03/2026", "annual_saving": "98000"}
+{"submission_id": "S-0062", "team": "support", "title": "Shorten escalation handoff 7", "target_date": "13/05/2026", "annual_saving": "saves about two days a week"}
+{"submission_id": "S-0051", "team": "engineering", "title": "Trim flaky test suite 2", "target_date": "03/07/2026", "annual_saving": "45000"}
+{"submission_id": "S-0013", "team": "logistics", "title": "Reduce pick-path walking distance 12", "target_date": "18/05/2026", "annual_saving": "150000"}
+{"submission_id": "S-0078", "team": "procurement", "title": "Batch small purchase orders 3", "target_date": "04/10/2026", "annual_saving": "3200"}
+{"submission_id": "S-0089", "team": "marketing", "title": "Refresh campaign assets 2026-1", "target_date": "2026-13-01", "annual_saving": "5000"}
+{"team": "orphan", "title": "no id"}
