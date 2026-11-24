@@ -211,17 +211,16 @@ ordering that does nothing.
 
 ## Scope: What This Deliberately Does Not Do
 
-**Fuzzy dedup.** Kinship in this portfolio does blocking, similarity and clustering, and
+**Fuzzy dedup.** Kinship, a sibling project, does blocking, similarity and clustering, and
 demonstrates that single linkage chains transitively across any threshold below 1.0. Only exact-key
 dedup lives here — same team, same folded title — and duplicates are **reported rather than
 collapsed**, because which copy survives is the owner's judgement.
 
-**Streamlit, embedded charts and PDF export**, all of which the brief asks for. Plumbline already
-carries `render/chart.py`, and this portfolio has a logged gap for untested UI code. A text table
+**Streamlit, embedded charts and PDF export**, all of which the project brief asks for. Plumbline already
+carries `render/chart.py`, and charts are the one thing CI cannot assert on. A text table
 asserts in CI; a chart does not.
 
-The brief's verdict was *"Pydantic validation + dedup"*, which is the least novel line in the strategy
-doc. The diligence check found that dedup, timelines, status tracking and SQLite were all already
+The project brief's verdict was *"Pydantic validation + dedup"*, which is the least novel line in the planning notes. A survey of the sibling projects found that dedup, timelines, status tracking and SQLite were all already
 built — and that **nothing anywhere handled locale-ambiguous dates** (`dayfirst`/`monthfirst`: zero
 hits; AsOf uses `date.fromisoformat`, unambiguous by construction). That gap is the whole
 project, and the rest is scoped out with reasons.
